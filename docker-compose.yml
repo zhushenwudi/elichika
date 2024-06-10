@@ -13,7 +13,5 @@ services:
       - 80:80
     restart: always
     environment:
-      # static文件夹所在服务器的IP
+      # 填写static文件夹所在服务器的IP
       - CDN_SERVER=http://192.168.68.52/static
-      # 服务端口号
-      - LISTEN_PORT=80

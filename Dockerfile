@@ -52,6 +52,6 @@ CMD /bin/bash -c "echo '{ \
   \"app_name\": \"elichika\", \
   \"settings\": { \
     \"cdn_server\": \"'$CDN_SERVER'\", \
-    \"listen_port\": \"'$LISTEN_PORT'\" \
+    \"listen_port\": \"80\" \
   } \
 }' > /llas/config.json && go run main.go"
