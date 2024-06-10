@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 # 设置环境变量
 ENV GO_VERSION 1.20.6
-ENV GIT_SSL_NO_VERIFY=true
+# ENV GIT_SSL_NO_VERIFY=true
 ENV GOPROXY=https://goproxy.cn
 
 # 设置工作目录
@@ -20,7 +20,8 @@ COPY . /llas
 #    && echo "deb-src http://mirrors.aliyun.com/ubuntu/ noble-backports main restricted universe multiverse" >> /etc/apt/sources.list
 
 # 更新并安装依赖
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     g++ \
     gcc \
 	tzdata \
@@ -44,5 +45,10 @@ RUN wget --no-check-certificate -O go$GO_VERSION.linux-amd64.tar.gz "https://dl.
     && tar -xzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local
 ENV PATH="/usr/local/go/bin:${PATH}"
 
-# 运行Go程序
-CMD ["go", "run", "main.go"]
+CMD /bin/bash -c "echo '{ \
+  \"app_name\": \"elichika\", \
+  \"settings\": { \
+    \"cdn_server\": \"'$CDN_SERVER'\", \
+    \"listen_port\": \"'$LISTEN_PORT'\" \
+  } \
+}' > /llas/config.json && go run main.go"

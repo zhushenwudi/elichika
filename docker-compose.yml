@@ -6,10 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      # windows: /g/LLAS分流/elichika:/llas
-      # mac/linux: /Users/user/Desktop/LLAS分流/elichika:/llas
+      # windows: /g/LLAS/elichika:/llas
+      # mac/linux: /Users/user/Desktop/LLAS/elichika:/llas
       - /g/LLAS/elichika/static:/llas/static
-      - /g/LLAS/elichika/config.json:/llas/config.json
     ports:
-      - 8080:80
+      - 80:80
     restart: always
+    environment:
+      - CDN_SERVER=http://192.168.68.52/static
+      - LISTEN_PORT=80
