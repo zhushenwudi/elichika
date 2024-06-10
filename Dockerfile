@@ -11,6 +11,9 @@ WORKDIR /llas
 # 将源代码复制到容器中
 COPY . /llas
 
+# 容器内监听80端口
+EXPOSE 80
+
 # 国外无法访问切换阿里镜像源，速度比较慢
 #RUN echo "deb http://mirrors.aliyun.com/ubuntu/ noble main restricted universe multiverse" > /etc/apt/sources.list \
 #    && echo "deb http://mirrors.aliyun.com/ubuntu/ noble-updates main restricted universe multiverse" >> /etc/apt/sources.list \
