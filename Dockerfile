@@ -1,9 +1,10 @@
 FROM ubuntu:latest
 
 # 设置环境变量
-ENV GO_VERSION 1.20.6
-# ENV GIT_SSL_NO_VERIFY=true
+ENV GO_VERSION=1.20.6
 ENV GOPROXY=https://goproxy.cn
+ENV CDN_PROTOCOL=http
+ENV CDN_SERVER=192.168.1.1
 
 # 设置工作目录
 WORKDIR /llas
@@ -45,13 +46,14 @@ RUN ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # 下载并安装Go
 RUN wget --no-check-certificate -O go$GO_VERSION.linux-amd64.tar.gz "https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz" \
-    && tar -xzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local
+    && tar -xzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local \
+    && rm go$GO_VERSION.linux-amd64.tar.gz
 ENV PATH="/usr/local/go/bin:${PATH}"
 
 CMD /bin/bash -c "echo '{ \
   \"app_name\": \"elichika\", \
   \"settings\": { \
-    \"cdn_server\": \"'$CDN_SERVER'\", \
+    \"cdn_server\": \"'$CDN_PROTOCOL'://'$CDN_SERVER'/static\", \
     \"listen_port\": \"80\" \
   } \
 }' > /llas/config.json && go run main.go"

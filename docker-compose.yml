@@ -13,5 +13,7 @@ services:
       - 80:80
     restart: always
     environment:
+      # 填写static文件夹所在服务器的协议，可以是 http 或 https
+      - CDN_PROTOCOL=http
       # 填写static文件夹所在服务器的IP
-      - CDN_SERVER=http://192.168.68.52/static
+      - CDN_SERVER=192.168.68.52
