@@ -6,12 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      # windows: /g/LLAS/elichika:/llas
-      # mac/linux: /Users/user/Desktop/LLAS/elichika:/llas
+      # windows: /g/LLAS/elichika/static:/llas/static
+      # mac/linux: /Users/${用户名}/Desktop/LLAS/elichika/static:/llas/static
       - /g/LLAS/elichika/static:/llas/static
     ports:
       - 80:80
     restart: always
     environment:
+      # static文件夹所在服务器的IP
       - CDN_SERVER=http://192.168.68.52/static
+      # 服务端口号
       - LISTEN_PORT=80
