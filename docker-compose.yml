@@ -1,0 +1,14 @@
+version: '3'
+services:
+  ubuntu:
+    container_name: llas
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # windows: /g/LLAS分流/elichika:/llas
+      # mac/linux: /Users/user/Desktop/LLAS分流/elichika:/llas
+      - /g/LLAS分流/elichika:/llas
+    ports:
+      - 8080:80
+    restart: always
